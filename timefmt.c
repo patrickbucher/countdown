@@ -1,5 +1,6 @@
 #include <ctype.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include "timefmt.h"
@@ -39,4 +40,39 @@ int time_str_to_seconds(const char *time_str)
     }
 
     return seconds;
+}
+
+char *seconds_to_time_str(int seconds)
+{
+    int hours, minutes;
+    const size_t n = 32;
+    char *time = malloc(n * sizeof(char));
+
+    if (seconds <= 0) {
+        return "";
+    }
+
+    hours = 0;
+    minutes = 0;
+
+    if (seconds >= 3600) {
+        hours = seconds / 3600;
+        seconds -= hours * 3600;
+    }
+    if (seconds >= 60) {
+        minutes = seconds / 60;
+        seconds -= minutes * 60;
+    }
+
+    if (hours > 0) {
+        snprintf(time, n, "%dh%dm%ds", hours, minutes, seconds);
+    }
+    else if (minutes > 0) {
+        snprintf(time, n, "%dm%ds", minutes, seconds);
+    }
+    else if (seconds > 0) {
+        snprintf(time, n, "%ds", seconds);
+    }
+
+    return time;
 }

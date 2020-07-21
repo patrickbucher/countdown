@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
 
     while (seconds > 0) {
         timestr = seconds_to_time_str(seconds);
-        printed = printf("%s", timestr);
+        printed = printf("%s ", timestr);
         fflush(stdout);
         sleep(1);
         seconds--;

@@ -1,0 +1,3 @@
+*.o
+countdown
+test_timefmt

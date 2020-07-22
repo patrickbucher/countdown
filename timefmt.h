@@ -3,5 +3,6 @@
 int time_str_to_seconds(const char *);
 
 // seconds_to_time_str converts the given number of seconds to a formatted time
-// string, e.g. 3720 is converted to "1h2m3s".
-char *seconds_to_time_str(int);
+// string, which is written into the given buffer with size indication, e.g.
+// 3720 is converted to "1h2m3s".
+void seconds_to_time_str(int, char*, size_t);

@@ -42,14 +42,12 @@ int time_str_to_seconds(const char *time_str)
     return seconds;
 }
 
-char *seconds_to_time_str(int seconds)
+void seconds_to_time_str(int seconds, char *buf, size_t size)
 {
     int hours, minutes;
-    const size_t n = 32;
-    char *time = malloc(n * sizeof(char));
 
     if (seconds <= 0) {
-        return "";
+        return;
     }
 
     hours = 0;
@@ -65,14 +63,12 @@ char *seconds_to_time_str(int seconds)
     }
 
     if (hours > 0) {
-        snprintf(time, n, "%dh%dm%ds", hours, minutes, seconds);
+        snprintf(buf, size, "%dh%dm%ds", hours, minutes, seconds);
     }
     else if (minutes > 0) {
-        snprintf(time, n, "%dm%ds", minutes, seconds);
+        snprintf(buf, size, "%dm%ds", minutes, seconds);
     }
     else if (seconds > 0) {
-        snprintf(time, n, "%ds", seconds);
+        snprintf(buf, size, "%ds", seconds);
     }
-
-    return time;
 }

@@ -1,6 +1,7 @@
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "timefmt.h"
 
@@ -19,7 +20,7 @@ static const test_case table[] = {
     {"1h0m59s", 3659},
 };
 
-void test_time_str_to_seconds()
+static void test_time_str_to_seconds()
 {
     for (int i = 0; i < sizeof(table)/sizeof(test_case); i++) {
         const char *input = table[i].time_str;
@@ -33,18 +34,24 @@ void test_time_str_to_seconds()
     }
 }
 
-void test_seconds_to_time_str()
+static void test_seconds_to_time_str()
 {
+    char *actual;
+    size_t size = 10;
+
     for (int i = 0; i < sizeof(table)/sizeof(test_case); i++) {
         const int input = table[i].seconds;
         const char *expected = table[i].time_str;
-        const char *actual = seconds_to_time_str(input);
-        const int n = strlen(expected);
+        actual = (char *)malloc(sizeof(char) * size);
+        seconds_to_time_str(input, actual, size);
+        const long unsigned int n = strlen(expected);
         if (strncmp(expected, actual, n) != 0) {
             printf("seconds_to_time_str(%d): expected %s, got %s\n",
                     input, expected, actual);
+            free(actual);
             exit(1);
         }
+        free(actual);
     }
 }
 

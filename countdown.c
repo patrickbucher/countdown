@@ -12,6 +12,7 @@ int main(int argc, char *argv[])
     int printed = 0;
     int i = 0;
     char *timestr;
+    size_t size = 64;
 
     if (argc < 2) {
         fail(argv[0]);
@@ -23,7 +24,8 @@ int main(int argc, char *argv[])
     }
 
     while (seconds > 0) {
-        timestr = seconds_to_time_str(seconds);
+        timestr = (char *)malloc(sizeof(char) * size);
+        seconds_to_time_str(seconds, timestr, size);
         printed = printf("%s ", timestr);
         fflush(stdout);
         sleep(1);
@@ -32,6 +34,7 @@ int main(int argc, char *argv[])
             putchar('\b');
         }
         fflush(stdout);
+        free(timestr);
     }
 
     return 0;

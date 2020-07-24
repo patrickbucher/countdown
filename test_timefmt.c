@@ -22,7 +22,7 @@ static const test_case table[] = {
 
 static void test_time_str_to_seconds()
 {
-    for (int i = 0; i < sizeof(table)/sizeof(test_case); i++) {
+    for (int i = 0; i < sizeof(table)/sizeof(table[0]); i++) {
         const char *input = table[i].time_str;
         const int expected = table[i].seconds;
         const int actual = time_str_to_seconds(input);
@@ -39,7 +39,7 @@ static void test_seconds_to_time_str()
     char *actual;
     size_t size = 10;
 
-    for (int i = 0; i < sizeof(table)/sizeof(test_case); i++) {
+    for (int i = 0; i < sizeof(table)/sizeof(table[0]); i++) {
         const int input = table[i].seconds;
         const char *expected = table[i].time_str;
         actual = (char *)malloc(sizeof(char) * size);
